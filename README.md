@@ -20,6 +20,7 @@ Database
   - JDBC URL:	jdbc:h2:mem:demo-db
   - username: sa
   - password: password
+- Auditing Product table using Hibernate Enver
 
 TODO:
 - Documentation
