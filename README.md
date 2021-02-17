@@ -25,4 +25,4 @@ TODO:
 - Documentation
 - More integration tests
 - Security
-- If scalability requirements, use No-SQL DB. So a provision will be developed using system property to use SQL/NoSQL DB (Dynamo DB/Mongo DB would be ideal choices) 
+- If performance requirements as the number of products grow to more (towards millions), use No-SQL DB. So a provision will be developed using system property to use SQL/NoSQL DB (Dynamo DB/Mongo DB would be ideal choices) 
