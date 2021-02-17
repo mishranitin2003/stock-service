@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends CrudRepository<Product, Integer> {
 
-    @Query("FROM Product p WHERE p.product = :product AND p.retailer.retailerName = :retailerName")
-    List<Product> findByProductAndRetailer(@Param("product") String product, @Param("retailerName")String retailerName);
+    @Query("FROM Product p WHERE p.id = :productId AND p.retailer.retailerName = :retailerName")
+    List<Product> findByProductAndRetailer(@Param("productId") int productId, @Param("retailerName")String retailerName);
 }

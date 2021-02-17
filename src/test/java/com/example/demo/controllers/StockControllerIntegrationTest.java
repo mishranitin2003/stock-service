@@ -29,7 +29,7 @@ public class StockControllerIntegrationTest {
 
     @Test
     public void whenGetRequestToUsersEndPointWithIdPathVariable_thenCorrectResponse() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/recommendation/{product}", "a").param("retailer", "One-Retailer"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/recommendation/{product}", 1).param("retailer", "One-Retailer"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$['product']").value("a"));
     }

@@ -49,12 +49,12 @@ public class StockServiceTest {
         product.setMinStock(4);
         product.setStockBlocked(false);
 
-        when(productRepository.findByProductAndRetailer(anyString(), anyString()))
+        when(productRepository.findByProductAndRetailer(anyInt(), anyString()))
                 .thenReturn(Stream.of(product).collect(Collectors.toList()));
 
-        StockRecommendation recommendation = serviceToTest.getStockRecommendations("a", "Hello-Retailer");
+        StockRecommendation recommendation = serviceToTest.getStockRecommendations(1, "Hello-Retailer");
 
-        verify(productRepository).findByProductAndRetailer(anyString(), anyString());
+        verify(productRepository).findByProductAndRetailer(anyInt(), anyString());
 
         assertTrue(recommendation.getRecommendations().isEmpty());
         assertEquals(product.getProduct(), recommendation.getProduct());
@@ -72,15 +72,15 @@ public class StockServiceTest {
         product.setOneOffOrder(15);
         product.setStockBlocked(false);
 
-        Mockito.when(productRepository.findByProductAndRetailer(anyString(), anyString()))
+        Mockito.when(productRepository.findByProductAndRetailer(anyInt(), anyString()))
                 .thenReturn(Stream.of(product).collect(Collectors.toList()));
 
         Mockito.when(messageSource.getMessage(anyString(), (Object[])any(), any(Locale.class)))
                 .thenReturn("Product d has a minimum stock level of 8").thenReturn("Product d has a one-off order of 15");
 
-        StockRecommendation recommendation = serviceToTest.getStockRecommendations("d", "Hello-Retailer");
+        StockRecommendation recommendation = serviceToTest.getStockRecommendations(4, "Hello-Retailer");
 
-        verify(productRepository).findByProductAndRetailer(anyString(), anyString());
+        verify(productRepository).findByProductAndRetailer(anyInt(), anyString());
 
         assertEquals(2, recommendation.getRecommendations().size());
         assertSame("Product d has a minimum stock level of 8", recommendation.getRecommendations().get(0));
@@ -98,15 +98,15 @@ public class StockServiceTest {
         product.setMinStock(4);
         product.setStockBlocked(true);
 
-        when(productRepository.findByProductAndRetailer(anyString(), anyString()))
+        when(productRepository.findByProductAndRetailer(anyInt(), anyString()))
                 .thenReturn(Stream.of(product).collect(Collectors.toList()));
 
         when(messageSource.getMessage(anyString(), (Object[])any(), any(Locale.class)))
                 .thenReturn("Product c is blocked and new stock should not be ordered").thenReturn("Product c has a minimum stock level of 4");
 
-        StockRecommendation recommendation = serviceToTest.getStockRecommendations("c", "Hello-Retailer");
+        StockRecommendation recommendation = serviceToTest.getStockRecommendations(3, "Hello-Retailer");
 
-        verify(productRepository).findByProductAndRetailer(anyString(), anyString());
+        verify(productRepository).findByProductAndRetailer(anyInt(), anyString());
 
         assertEquals(2, recommendation.getRecommendations().size());
         assertSame("Product c is blocked and new stock should not be ordered", recommendation.getRecommendations().get(0));

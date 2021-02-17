@@ -27,17 +27,17 @@ public class StockServiceImpl implements StockService {
     private MessageSource messageSource;
 
     @Override
-    public StockRecommendation getStockRecommendations(String product, String retailer) {
+    public StockRecommendation getStockRecommendations(int productId, String retailer) {
         StockRecommendation recommendation = new StockRecommendation();
-        recommendation.setProduct(product);
 
         List<String> recommendations = recommendation.getRecommendations();
 
-        List<Product> products = productRepository.findByProductAndRetailer(product, retailer);
+        List<Product> products = productRepository.findByProductAndRetailer(productId, retailer);
         if (products.isEmpty()) {
             throw new ProductNotFoundException();
         }
         products.stream().findFirst().ifPresent(p -> {
+            recommendation.setProduct(p.getProduct());
             Integer currentStock = p.getCurrentStock();
             if (p.getStockBlocked()) {
                 recommendations.add(messageSource.getMessage("BLOCK_NO_NEW_STOCK", new Object[]{p.getProduct()}, Locale.getDefault()));

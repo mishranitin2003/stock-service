@@ -16,9 +16,9 @@ public class StockController {
     private StockService stockService;
 
     @GetMapping("/recommendation/{productId}")
-    public StockRecommendation getStockRecommendations(@PathVariable("productId") String product,
+    public StockRecommendation getStockRecommendations(@PathVariable("productId") int productId,
                                                            @RequestParam("retailer") String retailer) {
-        return stockService.getStockRecommendations(product, retailer);
+        return stockService.getStockRecommendations(productId, retailer);
     }
 
     @PutMapping("/update/minStockLevel/{productId}/{minStockLevel}")
