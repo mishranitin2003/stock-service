@@ -14,3 +14,15 @@ Execution
   - Update/PUT Minimum Stock level: /update/minStockLevel/{productId}/{minStockLevel}
   - Add/PUT to Current Stock level: /add/stockLevel/{productId}/{stockLevel}
   - Mark Product Blocked: /markBlocked/{productId}
+
+Database
+- H2 in-memory DB is used. It can be connected via service on http://localhost:<Server_port>/h2-console with details
+  - JDBC URL:	jdbc:h2:mem:demo-db
+  - username: sa
+  - password: password
+
+TODO:
+- Documentation
+- More integration tests
+- Security
+- If scalability requirements, use No-SQL DB. So a provision will be developed using system property to use SQL/NoSQL DB (Dynamo DB/Mongo DB would be ideal choices) 
